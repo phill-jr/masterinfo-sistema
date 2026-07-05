@@ -1,41 +1,38 @@
 # Central Comercial · MasterInfo (Sistema)
 
-Sistema-base com **login**, **3 perfis de acesso** e **página de administração**.
-Protótipo funcional que roda **abrindo o `index.html` no navegador** (duplo-clique), sem instalar nada.
+Sistema interno com **login de verdade**, **3 perfis de acesso** e **página de administração**, usando **Supabase** (login seguro + banco na nuvem).
 
-## Como usar
-1. Abra o `index.html` no navegador (Chrome/Edge).
-2. Entre com uma das contas de teste:
+🔗 **Online:** https://phill-jr.github.io/masterinfo-sistema/
 
-| Perfil | Usuário | Senha |
-|--------|---------|-------|
-| Gestor (admin) | `admin` | `admin123` |
-| Líder | `lider` | `lider123` |
-| Colaborador | `calouro` | `123` |
+## Como entrar
+Use o **e-mail e a senha** cadastrados no Supabase. O primeiro usuário criado vira **Gestor**.
 
-## O que cada perfil vê
-- **Colaborador** — material de estudo e do dia a dia (Trilha, POPs, Cadência). Só visualiza.
+## Perfis
+- **Colaborador** — vê o material de estudo/dia a dia. Só visualiza.
 - **Líder** — o do colaborador + Onboarding (aplicador) e Rotina da Liderança.
-- **Gestor** — tudo + a aba **Admin**: cria/edita/exclui **usuários** e edita o **conteúdo** que cada perfil enxerga.
+- **Gestor** — tudo + a aba **Admin**.
 
-## Como o Gestor edita
-Na aba **Admin**:
-- **Usuários**: novo usuário, editar login/senha/tipo, excluir.
-- **Conteúdo**: cada card tem título, link, categoria e um seletor de **quem vê** (marca os perfis). O que você marcar aparece no "Início" de quem tem aquele perfil.
-- **Restaurar padrão**: volta usuários e conteúdo ao original.
+## Admin (Gestor)
+- **Usuários** — vê todos, edita o **nome** e o **tipo (perfil)** de cada um.
+  Criar/remover login (e-mail e senha) é no painel do Supabase (Authentication → Users). Ao criar, a pessoa aparece na lista e você define o perfil.
+- **Conteúdo** — cria/edita/exclui os cards e marca **quem vê** (por perfil).
 
-## Banco de dados (temporário)
-Os dados (usuários e conteúdo) ficam salvos no **navegador** (localStorage), na chave `masterinfo_sistema_v1`.
-- ✅ Vantagem: funciona na hora, sem servidor, sem custo.
-- ⚠️ Limitação: os dados vivem **só naquele navegador/computador** e a senha **não é criptografada**. É um protótipo para validar a visão, **não é seguro para produção**.
+## Como funciona por dentro
+- `index.html` — o app inteiro (interface + lógica), autocontido. Fala com o Supabase via a biblioteca `@supabase/supabase-js` (CDN).
+- **Supabase** — autenticação (e-mail/senha) + banco Postgres:
+  - tabela `profiles` (quem é quem + o tipo/perfil)
+  - tabela `content` (os cards e quem vê cada um)
+  - **RLS** (Row Level Security): todos logados leem; só o Gestor edita.
+- `supabase/schema.sql` — o SQL que monta o banco (rode no SQL Editor do Supabase).
 
-## Próximo passo (quando validar a visão)
-Migrar o "banco temporário" para uma base real na nuvem (ex.: **Supabase**), ganhando:
-- Login seguro (senha com hash), acesso de qualquer lugar.
-- Dados compartilhados entre todos os usuários.
-- A mesma estrutura de perfis e admin já pensada aqui.
+## Segurança
+- A **chave publicável** (`sb_publishable_...`) fica no código de propósito: ela é feita pra isso e só permite o que a RLS libera.
+- A **senha do banco** e a **service_role** NÃO ficam no projeto (são secretas).
 
-## Estrutura
-- `index.html` — o app inteiro (interface + lógica + "banco"), autocontido.
+## Configuração
+No topo do `<script>` em `index.html`:
+- `SUPABASE_URL` = URL do projeto
+- `SUPABASE_KEY` = chave publicável (anon)
 
-Os links dos cards apontam para os materiais em `../03 - Masterinfo Internet/` (mantenha as duas pastas lado a lado no Desktop para os links funcionarem).
+## Deploy
+Hospedado no **GitHub Pages**. Qualquer `git push` na branch `main` atualiza o site em ~1 min.

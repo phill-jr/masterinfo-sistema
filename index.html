@@ -17,7 +17,6 @@
   button{font-family:inherit;cursor:pointer}
   input,select{font-family:inherit}
   .hide{display:none!important}
-  /* ===== LOGIN ===== */
   #login{min-height:100vh;display:grid;place-items:center;padding:24px;background:radial-gradient(120% 120% at 100% 0,#fff6ef,#faf9f8)}
   .loginbox{width:100%;max-width:390px;background:#fff;border:1px solid var(--line);border-radius:20px;box-shadow:var(--shadow-lg);padding:32px 28px}
   .brand{display:flex;align-items:center;gap:12px;margin-bottom:20px}
@@ -29,13 +28,12 @@
   input,select{width:100%;padding:11px 13px;border:1px solid var(--line);border-radius:11px;font-size:14.5px;background:#fff;outline:none;transition:.15s}
   input:focus,select:focus{border-color:var(--orange);box-shadow:0 0 0 3px rgba(255,122,26,.15)}
   .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;width:100%;padding:12px;border:none;border-radius:11px;background:linear-gradient(135deg,var(--orange),var(--orange-deep));color:#fff;font-weight:800;font-size:15px;margin-top:18px;box-shadow:0 8px 20px rgba(255,122,26,.35)}
-  .btn:hover{filter:brightness(1.05)}
+  .btn:hover{filter:brightness(1.05)}.btn:disabled{opacity:.6;cursor:default}
   .btn.sec{background:#fff;color:#333;border:1px solid var(--line);box-shadow:none;font-weight:700}
   .btn.sm{width:auto;padding:8px 14px;font-size:13px;margin:0}
   .btn.danger{background:#fff;color:var(--red);border:1px solid #f3c2bd;box-shadow:none}
   .err{background:#fef2f2;border:1px solid #fecaca;color:#991b1b;border-radius:10px;padding:9px 12px;font-size:13px;margin-top:14px}
   .hint{margin-top:16px;font-size:12px;color:var(--gray);background:#f7f7f8;border:1px dashed #e2e2e2;border-radius:10px;padding:10px 12px;line-height:1.6}
-  /* ===== APP ===== */
   .topbar{position:sticky;top:0;z-index:30;background:#fff;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:14px;padding:12px 20px}
   .topbar .logo{width:32px;height:32px;border-radius:9px;background:linear-gradient(135deg,var(--orange),var(--orange-deep));display:grid;place-items:center;font-weight:800;color:#fff;font-size:16px;flex:none}
   .topbar b{font-size:15px}
@@ -54,11 +52,13 @@
   .grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fill,minmax(250px,1fr))}
   .tile{display:block;background:#fff;border:1px solid var(--line);border-radius:14px;padding:16px 17px;box-shadow:var(--shadow);text-decoration:none;color:inherit;transition:.15s}
   .tile:hover{transform:translateY(-2px);border-color:var(--orange-soft);box-shadow:var(--shadow-lg)}
+  .tile.soon{opacity:.72;cursor:default}
+  .tile.soon:hover{transform:none;border-color:var(--line);box-shadow:var(--shadow)}
   .tile .em{font-size:24px}
   .tile h4{margin:9px 0 4px;font-size:15px}
   .tile p{margin:0;color:var(--muted);font-size:13px;line-height:1.45}
+  .tile .soonlb{display:inline-block;margin-top:8px;font-size:10.5px;font-weight:800;color:#9a7b00;background:#fff8e1;border:1px solid #f0e0a0;border-radius:999px;padding:2px 8px}
   .empty{background:#fff;border:1px dashed #e2e2e2;border-radius:14px;padding:26px;text-align:center;color:var(--gray);font-size:14px}
-  /* admin */
   .panel{background:#fff;border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow);overflow:hidden;margin-bottom:20px}
   .panel .ph{display:flex;align-items:center;gap:10px;padding:14px 18px;border-bottom:1px solid var(--line)}
   .panel .ph b{font-size:15.5px}.panel .ph .btn{margin-left:auto}
@@ -73,39 +73,41 @@
   .tabs{display:flex;gap:6px;margin-bottom:16px}
   .tabs button{border:1px solid var(--line);background:#fff;font-weight:700;font-size:13.5px;padding:9px 15px;border-radius:10px;color:#555}
   .tabs button.active{background:#141414;color:#fff;border-color:#141414}
-  /* modal */
+  .note{background:#eff6ff;border:1px solid #bfdbfe;color:#1e40af;border-radius:12px;padding:11px 15px;font-size:13px;line-height:1.55;margin:0 0 16px}
+  .note a{color:#1d4ed8;font-weight:700}
   .ov{position:fixed;inset:0;background:rgba(20,20,20,.5);backdrop-filter:blur(3px);display:grid;place-items:center;z-index:60;padding:20px}
   .modal{width:100%;max-width:460px;background:#fff;border-radius:18px;box-shadow:var(--shadow-lg);padding:24px;max-height:90vh;overflow:auto}
   .modal h3{margin:0 0 4px;font-size:18px}.modal .msub{color:var(--muted);font-size:13px;margin:0 0 12px}
   .roles{display:flex;gap:8px;flex-wrap:wrap;margin-top:6px}
   .roles label{display:flex;align-items:center;gap:7px;background:#fafafa;border:1px solid var(--line);border-radius:10px;padding:8px 12px;font-size:13px;font-weight:600;color:#333;margin:0;cursor:pointer}
   .roles input{width:auto;margin:0}
-  .mfoot{display:flex;gap:10px;margin-top:20px}
-  .mfoot .btn{margin:0}
+  .mfoot{display:flex;gap:10px;margin-top:20px}.mfoot .btn{margin:0}
   .toast{position:fixed;bottom:22px;left:50%;transform:translateX(-50%);background:#141414;color:#fff;padding:11px 18px;border-radius:12px;font-size:13.5px;font-weight:600;box-shadow:var(--shadow-lg);z-index:80;opacity:0;transition:.25s}
   .toast.on{opacity:1}
+  .toast.bad{background:#b91c1c}
+  .loading{color:var(--gray);font-size:14px;padding:20px 2px}
   @media(max-width:640px){.nav button span{display:none}.me .who{display:none}}
 </style>
 </head>
 <body>
 
-<!-- ============ LOGIN ============ -->
+<!-- LOGIN -->
 <div id="login">
-  <form class="loginbox" id="loginForm" autocomplete="off">
+  <form class="loginbox" id="loginForm" autocomplete="on">
     <div class="brand"><div class="logo">M</div><div><b>Central Comercial</b><small>MasterInfo Internet</small></div></div>
     <h1>Entrar</h1>
-    <p class="lsub">Acesse com seu usuário e senha.</p>
-    <label>Usuário</label>
-    <input id="u" placeholder="seu usuário" autocomplete="off">
+    <p class="lsub">Acesse com seu e-mail e senha.</p>
+    <label>E-mail</label>
+    <input id="u" type="email" placeholder="voce@masterinfo.com" autocomplete="username">
     <label>Senha</label>
-    <input id="p" type="password" placeholder="sua senha" autocomplete="off">
+    <input id="p" type="password" placeholder="sua senha" autocomplete="current-password">
     <div id="loginErr" class="err hide"></div>
-    <button class="btn" type="submit">Entrar</button>
-    <div class="hint" id="loginHint"></div>
+    <button class="btn" type="submit" id="loginBtn">Entrar</button>
+    <div class="hint">Use o e-mail e a senha que foram cadastrados pra você. Não tem acesso? Fale com o Gestor.</div>
   </form>
 </div>
 
-<!-- ============ APP ============ -->
+<!-- APP -->
 <div id="app" class="hide">
   <div class="topbar">
     <div class="logo">M</div><b>Central Comercial</b>
@@ -121,221 +123,181 @@
 
 <div class="toast" id="toast"></div>
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
 (function(){
   "use strict";
-  var KEY = "masterinfo_sistema_v1";
+  var SUPABASE_URL = "https://rpqxcskakuphpyglnrib.supabase.co";
+  var SUPABASE_KEY = "sb_publishable_xhh-g0rT6DsvBphFiv7fnQ_i9PICYpC";
+  var DASH_USERS = "https://supabase.com/dashboard/project/rpqxcskakuphpyglnrib/auth/users";
   var ROLES = { colaborador:"Colaborador", lider:"Líder", gestor:"Gestor" };
+  var sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
-  /* ---------- "banco de dados temporário" (localStorage) ---------- */
-  function seed(){
-    return {
-      users:[
-        {id:uid(), nome:"Gestor (admin)", usuario:"admin", senha:"admin123", tipo:"gestor"},
-        {id:uid(), nome:"Líder Comercial", usuario:"lider", senha:"lider123", tipo:"lider"},
-        {id:uid(), nome:"Novo Colaborador", usuario:"calouro", senha:"123", tipo:"colaborador"}
-      ],
-      items:[
-        {id:uid(), emoji:"🧗", titulo:"Trilha do Calouro", desc:"Seu caminho dia a dia no onboarding.", url:"../03%20-%20Masterinfo%20Internet/02%20-%20Comercial/ONBOARDING/Trilha-do-Calouro-MasterInfo.html", cat:"Onboarding", roles:["colaborador","lider","gestor"]},
-        {id:uid(), emoji:"🚀", titulo:"Onboarding (Aplicador)", desc:"Checklist com responsáveis e cronograma. Para quem conduz.", url:"../03%20-%20Masterinfo%20Internet/02%20-%20Comercial/ONBOARDING/Onboarding-Comercial-MasterInfo.html", cat:"Onboarding", roles:["lider","gestor"]},
-        {id:uid(), emoji:"📚", titulo:"Biblioteca de Processos (POPs)", desc:"Os 12 POPs do comercial.", url:"../03%20-%20Masterinfo%20Internet/02%20-%20Comercial/CHECKLIST%20DO%20TIME/POPs/index.html", cat:"Processos", roles:["colaborador","lider","gestor"]},
-        {id:uid(), emoji:"🗓️", titulo:"Cadência por Etapa", desc:"O follow diário, os 3 toques e o ultimato.", url:"../03%20-%20Masterinfo%20Internet/02%20-%20Comercial/CHECKLIST%20DO%20TIME/Cadencia-por-Etapa-MasterInfo.html", cat:"Processos", roles:["colaborador","lider","gestor"]},
-        {id:uid(), emoji:"🧭", titulo:"Rotina da Liderança", desc:"Ritmo do dia e da semana da liderança.", url:"../03%20-%20Masterinfo%20Internet/02%20-%20Comercial/ROTINA%20DO%20TIME/Rotina-Lideranca-Inbound.html", cat:"Liderança", roles:["lider","gestor"]}
-      ]
-    };
-  }
-  function uid(){ return "id"+Math.random().toString(36).slice(2,9)+(Date.now()%100000); }
-  function load(){ try{ var d=JSON.parse(localStorage.getItem(KEY)); if(d&&d.users) return d; }catch(e){} var s=seed(); save(s); return s; }
-  function save(d){ localStorage.setItem(KEY, JSON.stringify(d)); }
-  var db = load();
-
-  /* ---------- sessão ---------- */
-  function getSession(){ try{ return JSON.parse(sessionStorage.getItem(KEY+"_sess")); }catch(e){ return null; } }
-  function setSession(u){ sessionStorage.setItem(KEY+"_sess", JSON.stringify(u)); }
-  function clearSession(){ sessionStorage.removeItem(KEY+"_sess"); }
-
-  /* ---------- util ---------- */
   var $ = function(s,el){ return (el||document).querySelector(s); };
   function esc(s){ return String(s==null?"":s).replace(/[&<>"]/g,function(m){return {"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;"}[m];}); }
-  function toast(m){ var t=$("#toast"); t.textContent=m; t.classList.add("on"); clearTimeout(t._t); t._t=setTimeout(function(){t.classList.remove("on");},1800); }
+  function toast(m,bad){ var t=$("#toast"); t.textContent=m; t.className="toast on"+(bad?" bad":""); clearTimeout(t._t); t._t=setTimeout(function(){t.className="toast";},2200); }
+
+  var me = null;
+  var state = { tab:"inicio" };
 
   /* ---------- LOGIN ---------- */
-  $("#loginHint").innerHTML = "Contas de teste: <b>admin / admin123</b> (Gestor), <b>lider / lider123</b>, <b>calouro / 123</b>.";
-  $("#loginForm").addEventListener("submit", function(e){
+  $("#loginForm").addEventListener("submit", async function(e){
     e.preventDefault();
-    var u=$("#u").value.trim().toLowerCase(), p=$("#p").value;
-    var found = db.users.filter(function(x){ return x.usuario.toLowerCase()===u && x.senha===p; })[0];
-    var err=$("#loginErr");
-    if(!found){ err.textContent="Usuário ou senha incorretos."; err.classList.remove("hide"); return; }
-    err.classList.add("hide");
-    setSession({id:found.id});
+    var email=$("#u").value.trim(), senha=$("#p").value;
+    var err=$("#loginErr"), btn=$("#loginBtn");
+    err.classList.add("hide"); btn.disabled=true; btn.textContent="Entrando...";
+    var res = await sb.auth.signInWithPassword({ email:email, password:senha });
+    btn.disabled=false; btn.textContent="Entrar";
+    if(res.error){
+      var msg = res.error.message||"";
+      if(/invalid login/i.test(msg)) msg="E-mail ou senha incorretos.";
+      else if(/confirm/i.test(msg)) msg="E-mail ainda não confirmado. Peça ao Gestor pra confirmar seu usuário.";
+      err.textContent=msg; err.classList.remove("hide"); return;
+    }
     boot();
   });
 
-  /* ---------- BOOT ---------- */
-  function currentUser(){ var s=getSession(); if(!s) return null; return db.users.filter(function(x){return x.id===s.id;})[0]||null; }
-  var state = { tab:"inicio" };
+  $("#logout").addEventListener("click", async function(){
+    await sb.auth.signOut(); me=null; state.tab="inicio";
+    $("#app").classList.add("hide"); $("#login").classList.remove("hide");
+    $("#u").value=""; $("#p").value="";
+  });
 
-  function boot(){
-    var me = currentUser();
-    if(!me){ $("#app").classList.add("hide"); $("#login").classList.remove("hide"); return; }
+  /* ---------- BOOT ---------- */
+  async function boot(){
+    var sess = (await sb.auth.getSession()).data.session;
+    if(!sess){ $("#app").classList.add("hide"); $("#login").classList.remove("hide"); return; }
+    var uid = sess.user.id;
+    var prof = await sb.from("profiles").select("*").eq("id",uid).single();
+    me = prof.data || { id:uid, nome:(sess.user.email||"Usuário"), email:sess.user.email, tipo:"colaborador" };
     $("#login").classList.add("hide"); $("#app").classList.remove("hide");
-    $("#meName").textContent = me.nome;
-    $("#meRoleTxt").textContent = "@"+me.usuario;
-    var b=$("#meBadge"); b.textContent=ROLES[me.tipo]; b.className="rb "+me.tipo;
-    renderNav(me); render(me);
+    $("#meName").textContent = me.nome || me.email;
+    $("#meRoleTxt").textContent = me.email;
+    var b=$("#meBadge"); b.textContent=ROLES[me.tipo]||me.tipo; b.className="rb "+me.tipo;
+    renderNav(); render();
   }
 
-  function renderNav(me){
+  function renderNav(){
     var nav=$("#nav"); nav.innerHTML="";
-    var tabs=[{k:"inicio",t:"🏠 Início"}];
-    if(me.tipo==="gestor") tabs.push({k:"admin",t:"⚙️ Admin"});
+    var tabs=[{k:"inicio",t:"🏠 <span>Início</span>"}];
+    if(me.tipo==="gestor") tabs.push({k:"admin",t:"⚙️ <span>Admin</span>"});
     tabs.forEach(function(t){
       var btn=document.createElement("button");
       btn.innerHTML=t.t; if(state.tab===t.k) btn.className="active";
-      btn.onclick=function(){ state.tab=t.k; render(me); renderNav(me); };
+      btn.onclick=function(){ state.tab=t.k; renderNav(); render(); };
       nav.appendChild(btn);
     });
   }
 
-  function render(me){
+  function render(){
+    if(state.tab==="admin" && me.tipo==="gestor"){ renderAdmin(); return; }
+    renderDash();
+  }
+
+  /* ---------- DASHBOARD ---------- */
+  async function renderDash(){
     var v=$("#view");
-    if(state.tab==="admin" && me.tipo==="gestor"){ renderAdmin(v,me); return; }
-    renderDash(v,me);
-  }
-
-  /* ---------- DASHBOARD (visão por perfil) ---------- */
-  function renderDash(v,me){
-    var visible = db.items.filter(function(it){ return (it.roles||[]).indexOf(me.tipo)>=0; });
-    var cats=[]; visible.forEach(function(it){ if(cats.indexOf(it.cat)<0) cats.push(it.cat); });
-    var msg = { colaborador:"Seu material de estudo e do dia a dia.", lider:"O que você acompanha e conduz.", gestor:"Tudo, mais a administração do sistema." }[me.tipo];
-    var html = '<h2 class="page">Olá, '+esc(me.nome.split(" ")[0])+' 👋</h2><p class="psub">'+esc(msg)+'</p>';
-    if(!visible.length){ html += '<div class="empty">Nenhum conteúdo liberado para o seu perfil ainda.</div>'; }
+    var msg = { colaborador:"Seu material de estudo e do dia a dia.", lider:"O que você acompanha e conduz.", gestor:"Tudo, mais a administração do sistema." }[me.tipo]||"";
+    v.innerHTML='<h2 class="page">Olá, '+esc((me.nome||me.email).split(" ")[0])+' 👋</h2><p class="psub">'+esc(msg)+'</p><div class="loading">Carregando…</div>';
+    var q = await sb.from("content").select("*").order("ordem");
+    if(q.error){ v.innerHTML+='<div class="empty">Erro ao carregar o conteúdo.</div>'; return; }
+    var visible=(q.data||[]).filter(function(it){ return (it.roles||[]).indexOf(me.tipo)>=0; });
+    var cats=[]; visible.forEach(function(it){ if(cats.indexOf(it.categoria)<0) cats.push(it.categoria); });
+    var html='<h2 class="page">Olá, '+esc((me.nome||me.email).split(" ")[0])+' 👋</h2><p class="psub">'+esc(msg)+'</p>';
+    if(!visible.length){ html+='<div class="empty">Nenhum conteúdo liberado para o seu perfil ainda.</div>'; }
     cats.forEach(function(c){
-      html += '<div class="cat">'+esc(c)+'</div><div class="grid">';
-      visible.filter(function(it){return it.cat===c;}).forEach(function(it){
-        html += '<a class="tile" href="'+esc(it.url)+'" target="_blank" rel="noopener"><div class="em">'+esc(it.emoji||"📄")+'</div><h4>'+esc(it.titulo)+'</h4><p>'+esc(it.desc||"")+'</p></a>';
+      html+='<div class="cat">'+esc(c)+'</div><div class="grid">';
+      visible.filter(function(it){return it.categoria===c;}).forEach(function(it){
+        var real = it.url && it.url!=="#";
+        if(real) html+='<a class="tile" href="'+esc(it.url)+'" target="_blank" rel="noopener"><div class="em">'+esc(it.emoji||"📄")+'</div><h4>'+esc(it.titulo)+'</h4><p>'+esc(it.descricao||"")+'</p></a>';
+        else html+='<div class="tile soon"><div class="em">'+esc(it.emoji||"📄")+'</div><h4>'+esc(it.titulo)+'</h4><p>'+esc(it.descricao||"")+'</p><span class="soonlb">link a definir</span></div>';
       });
-      html += '</div>';
+      html+='</div>';
     });
-    v.innerHTML = html;
+    v.innerHTML=html;
   }
 
-  /* ---------- ADMIN (só Gestor) ---------- */
-  function renderAdmin(v,me){
-    v.innerHTML =
-      '<h2 class="page">Administração</h2><p class="psub">Gerencie usuários e o conteúdo que cada perfil vê.</p>'+
-      '<div class="tabs"><button data-at="users" class="active">👥 Usuários</button><button data-at="content">🗂️ Conteúdo</button></div>'+
-      '<div id="adminBody"></div>'+
-      '<div style="margin-top:14px"><button class="btn danger sm" id="reset">Restaurar padrão</button></div>';
+  /* ---------- ADMIN ---------- */
+  async function renderAdmin(){
+    var v=$("#view");
+    v.innerHTML='<h2 class="page">Administração</h2><p class="psub">Gerencie usuários e o conteúdo que cada perfil vê.</p>'+
+      '<div class="tabs"><button data-at="users" class="active">👥 Usuários</button><button data-at="content">🗂️ Conteúdo</button></div><div id="ab"><div class="loading">Carregando…</div></div>';
     var at="users";
-    function paint(){
-      Array.prototype.forEach.call(v.querySelectorAll(".tabs button"),function(b){ b.classList.toggle("active", b.getAttribute("data-at")===at); });
-      $("#adminBody",v).innerHTML = at==="users" ? usersPanel() : contentPanel();
-      wire();
-    }
-    Array.prototype.forEach.call(v.querySelectorAll(".tabs button"),function(b){ b.onclick=function(){ at=b.getAttribute("data-at"); paint(); }; });
-    $("#reset",v).onclick=function(){ if(confirm("Restaurar usuários e conteúdo para o padrão? Isso apaga suas alterações.")){ db=seed(); save(db); toast("Restaurado."); paint(); } };
-    paint();
+    function tabsWire(){ Array.prototype.forEach.call(v.querySelectorAll(".tabs button"),function(b){ b.classList.toggle("active",b.getAttribute("data-at")===at); b.onclick=function(){ at=b.getAttribute("data-at"); paint(); }; }); }
+    async function paint(){ tabsWire(); if(at==="users") await usersPanel(); else await contentPanel(); }
+    tabsWire(); paint();
 
-    function usersPanel(){
-      var rows = db.users.map(function(u){
-        return '<tr><td><b>'+esc(u.nome)+'</b></td><td>@'+esc(u.usuario)+'</td><td><span class="rb '+u.tipo+'">'+ROLES[u.tipo]+'</span></td>'+
-          '<td class="acts"><button class="iconbtn" data-eu="'+u.id+'">Editar</button><button class="iconbtn del" data-du="'+u.id+'">Excluir</button></td></tr>';
+    async function usersPanel(){
+      var q=await sb.from("profiles").select("*").order("created_at");
+      var rows=(q.data||[]).map(function(u){
+        return '<tr><td><b>'+esc(u.nome||"-")+'</b></td><td>'+esc(u.email||"")+'</td><td><span class="rb '+u.tipo+'">'+(ROLES[u.tipo]||u.tipo)+'</span></td>'+
+          '<td class="acts"><button class="iconbtn" data-eu="'+u.id+'">Editar</button></td></tr>';
       }).join("");
-      return '<div class="panel"><div class="ph"><b>Usuários</b><button class="btn sm" id="newUser">+ Novo usuário</button></div>'+
-        '<table><thead><tr><th>Nome</th><th>Usuário</th><th>Tipo</th><th></th></tr></thead><tbody>'+rows+'</tbody></table></div>';
+      $("#ab",v).innerHTML=
+        '<div class="note">➕ Para <b>criar</b> ou <b>remover</b> um login (e-mail/senha), use o painel do Supabase: <a href="'+DASH_USERS+'" target="_blank" rel="noopener">abrir Usuários no Supabase</a>. Ao criar, a pessoa aparece aqui e você define o <b>tipo</b> (perfil) e o nome.</div>'+
+        '<div class="panel"><div class="ph"><b>Usuários</b></div><table><thead><tr><th>Nome</th><th>E-mail</th><th>Tipo</th><th></th></tr></thead><tbody>'+rows+'</tbody></table></div>';
+      Array.prototype.forEach.call(v.querySelectorAll("[data-eu]"),function(b){ b.onclick=function(){ userModal((q.data||[]).filter(function(x){return x.id===b.getAttribute("data-eu");})[0]); }; });
     }
-    function contentPanel(){
-      var rows = db.items.map(function(it){
-        var badges=(it.roles||[]).map(function(r){return '<span class="rb '+r+'" style="margin-right:4px">'+ROLES[r]+'</span>';}).join("");
-        return '<tr><td>'+esc(it.emoji||"📄")+' <b>'+esc(it.titulo)+'</b><br><small style="color:#9aa0a6">'+esc(it.cat)+'</small></td><td>'+badges+'</td>'+
+    function userModal(u){
+      openModal("Editar usuário","Defina o nome e o tipo de perfil (o login e a senha ficam no Supabase).",
+        '<label>Nome</label><input id="mNome" value="'+esc(u.nome||"")+'">'+
+        '<label>E-mail</label><input value="'+esc(u.email||"")+'" disabled style="opacity:.6">'+
+        '<label>Tipo de perfil</label><select id="mTipo">'+Object.keys(ROLES).map(function(k){return '<option value="'+k+'"'+(u.tipo===k?" selected":"")+'>'+ROLES[k]+'</option>';}).join("")+'</select>',
+        async function(){
+          if(u.id===me.id && $("#mTipo").value!=="gestor"){ toast("Você não pode tirar seu próprio acesso de Gestor.",true); return false; }
+          var r=await sb.from("profiles").update({nome:$("#mNome").value.trim(), tipo:$("#mTipo").value}).eq("id",u.id);
+          if(r.error){ toast(r.error.message,true); return false; }
+          toast("Usuário salvo."); paint(); return true;
+        });
+    }
+
+    async function contentPanel(){
+      var q=await sb.from("content").select("*").order("ordem");
+      var rows=(q.data||[]).map(function(it){
+        var badges=(it.roles||[]).map(function(r){return '<span class="rb '+r+'" style="margin-right:4px">'+(ROLES[r]||r)+'</span>';}).join("");
+        return '<tr><td>'+esc(it.emoji||"📄")+' <b>'+esc(it.titulo)+'</b><br><small style="color:#9aa0a6">'+esc(it.categoria)+'</small></td><td>'+badges+'</td>'+
           '<td class="acts"><button class="iconbtn" data-ei="'+it.id+'">Editar</button><button class="iconbtn del" data-di="'+it.id+'">Excluir</button></td></tr>';
       }).join("");
-      return '<div class="panel"><div class="ph"><b>Conteúdo</b><button class="btn sm" id="newItem">+ Novo conteúdo</button></div>'+
+      $("#ab",v).innerHTML='<div class="panel"><div class="ph"><b>Conteúdo</b><button class="btn sm" id="newItem">+ Novo conteúdo</button></div>'+
         '<table><thead><tr><th>Título</th><th>Quem vê</th><th></th></tr></thead><tbody>'+rows+'</tbody></table></div>';
+      $("#newItem",v).onclick=function(){ itemModal(null); };
+      Array.prototype.forEach.call(v.querySelectorAll("[data-ei]"),function(b){ b.onclick=function(){ itemModal((q.data||[]).filter(function(x){return x.id===b.getAttribute("data-ei");})[0]); }; });
+      Array.prototype.forEach.call(v.querySelectorAll("[data-di]"),function(b){ b.onclick=async function(){ if(!confirm("Excluir este conteúdo?"))return; var r=await sb.from("content").delete().eq("id",b.getAttribute("data-di")); if(r.error){toast(r.error.message,true);return;} toast("Excluído."); paint(); }; });
     }
-    function wire(){
-      var nu=$("#newUser",v); if(nu) nu.onclick=function(){ userModal(null); };
-      var ni=$("#newItem",v); if(ni) ni.onclick=function(){ itemModal(null); };
-      Array.prototype.forEach.call(v.querySelectorAll("[data-eu]"),function(b){ b.onclick=function(){ userModal(b.getAttribute("data-eu")); }; });
-      Array.prototype.forEach.call(v.querySelectorAll("[data-du]"),function(b){ b.onclick=function(){ delUser(b.getAttribute("data-du")); }; });
-      Array.prototype.forEach.call(v.querySelectorAll("[data-ei]"),function(b){ b.onclick=function(){ itemModal(b.getAttribute("data-ei")); }; });
-      Array.prototype.forEach.call(v.querySelectorAll("[data-di]"),function(b){ b.onclick=function(){ delItem(b.getAttribute("data-di")); }; });
-    }
-    function delUser(id){
-      if(db.users.length<=1){ toast("Precisa existir ao menos 1 usuário."); return; }
-      if(id===me.id){ toast("Você não pode excluir a si mesmo."); return; }
-      if(!confirm("Excluir este usuário?")) return;
-      db.users=db.users.filter(function(x){return x.id!==id;}); save(db); toast("Usuário excluído."); paint();
-    }
-    function delItem(id){ if(!confirm("Excluir este conteúdo?")) return; db.items=db.items.filter(function(x){return x.id!==id;}); save(db); toast("Conteúdo excluído."); paint(); }
-
-    /* modais */
-    function userModal(id){
-      var u = id ? db.users.filter(function(x){return x.id===id;})[0] : {nome:"",usuario:"",senha:"",tipo:"colaborador"};
-      openModal(
-        (id?"Editar":"Novo")+" usuário",
-        "Defina o acesso e o tipo de perfil.",
-        '<label>Nome</label><input id="mNome" value="'+esc(u.nome)+'">'+
-        '<label>Usuário (login)</label><input id="mUser" value="'+esc(u.usuario)+'">'+
-        '<label>Senha</label><input id="mSenha" value="'+esc(u.senha)+'">'+
-        '<label>Tipo de perfil</label><select id="mTipo">'+
-          Object.keys(ROLES).map(function(k){return '<option value="'+k+'"'+(u.tipo===k?" selected":"")+'>'+ROLES[k]+'</option>';}).join("")+
-        '</select>',
-        function(){
-          var nome=$("#mNome").value.trim(), usuario=$("#mUser").value.trim(), senha=$("#mSenha").value, tipo=$("#mTipo").value;
-          if(!nome||!usuario||!senha){ toast("Preencha nome, usuário e senha."); return false; }
-          var dup = db.users.filter(function(x){ return x.usuario.toLowerCase()===usuario.toLowerCase() && x.id!==id; })[0];
-          if(dup){ toast("Já existe um usuário com esse login."); return false; }
-          if(id){ Object.assign(u,{nome:nome,usuario:usuario,senha:senha,tipo:tipo}); }
-          else { db.users.push({id:uid(),nome:nome,usuario:usuario,senha:senha,tipo:tipo}); }
-          save(db); toast("Usuário salvo."); paint(); return true;
-        }
-      );
-    }
-    function itemModal(id){
-      var it = id ? db.items.filter(function(x){return x.id===id;})[0] : {emoji:"📄",titulo:"",desc:"",url:"",cat:"Geral",roles:["colaborador","lider","gestor"]};
-      openModal(
-        (id?"Editar":"Novo")+" conteúdo",
-        "Um card que aparece no início de quem tiver o perfil marcado.",
+    function itemModal(it){
+      var isNew=!it; it=it||{emoji:"📄",titulo:"",descricao:"",url:"",categoria:"Geral",roles:["colaborador","lider","gestor"],ordem:99};
+      openModal((isNew?"Novo":"Editar")+" conteúdo","Um card que aparece no Início de quem tiver o perfil marcado.",
         '<label>Emoji</label><input id="mEmoji" value="'+esc(it.emoji)+'" maxlength="4">'+
         '<label>Título</label><input id="mTit" value="'+esc(it.titulo)+'">'+
-        '<label>Descrição</label><input id="mDesc" value="'+esc(it.desc)+'">'+
-        '<label>Link (URL do arquivo/página)</label><input id="mUrl" value="'+esc(it.url)+'">'+
-        '<label>Categoria</label><input id="mCat" value="'+esc(it.cat)+'">'+
-        '<label>Quem vê</label><div class="roles">'+
-          Object.keys(ROLES).map(function(k){return '<label><input type="checkbox" value="'+k+'"'+((it.roles||[]).indexOf(k)>=0?" checked":"")+'> '+ROLES[k]+'</label>';}).join("")+
-        '</div>',
-        function(){
-          var titulo=$("#mTit").value.trim();
-          if(!titulo){ toast("Dê um título."); return false; }
+        '<label>Descrição</label><input id="mDesc" value="'+esc(it.descricao)+'">'+
+        '<label>Link (URL) — deixe # se ainda não tiver</label><input id="mUrl" value="'+esc(it.url)+'">'+
+        '<label>Categoria</label><input id="mCat" value="'+esc(it.categoria)+'">'+
+        '<label>Quem vê</label><div class="roles">'+Object.keys(ROLES).map(function(k){return '<label><input type="checkbox" value="'+k+'"'+((it.roles||[]).indexOf(k)>=0?" checked":"")+'> '+ROLES[k]+'</label>';}).join("")+'</div>',
+        async function(){
+          var titulo=$("#mTit").value.trim(); if(!titulo){ toast("Dê um título.",true); return false; }
           var roles=Array.prototype.map.call(document.querySelectorAll(".roles input:checked"),function(c){return c.value;});
-          if(!roles.length){ toast("Marque ao menos um perfil."); return false; }
-          var data={emoji:$("#mEmoji").value||"📄",titulo:titulo,desc:$("#mDesc").value.trim(),url:$("#mUrl").value.trim(),cat:$("#mCat").value.trim()||"Geral",roles:roles};
-          if(id){ Object.assign(it,data); } else { data.id=uid(); db.items.push(data); }
-          save(db); toast("Conteúdo salvo."); paint(); return true;
-        }
-      );
+          if(!roles.length){ toast("Marque ao menos um perfil.",true); return false; }
+          var data={emoji:$("#mEmoji").value||"📄",titulo:titulo,descricao:$("#mDesc").value.trim(),url:$("#mUrl").value.trim()||"#",categoria:$("#mCat").value.trim()||"Geral",roles:roles};
+          var r = isNew ? await sb.from("content").insert(data) : await sb.from("content").update(data).eq("id",it.id);
+          if(r.error){ toast(r.error.message,true); return false; }
+          toast("Conteúdo salvo."); paint(); return true;
+        });
     }
   }
 
-  /* ---------- MODAL genérico ---------- */
-  function openModal(title, sub, bodyHtml, onSave){
+  /* ---------- MODAL ---------- */
+  function openModal(title,sub,bodyHtml,onSave){
     var ov=document.createElement("div"); ov.className="ov";
-    ov.innerHTML='<div class="modal"><h3>'+esc(title)+'</h3><p class="msub">'+esc(sub)+'</p><div id="mBody">'+bodyHtml+'</div>'+
+    ov.innerHTML='<div class="modal"><h3>'+esc(title)+'</h3><p class="msub">'+esc(sub)+'</p><div>'+bodyHtml+'</div>'+
       '<div class="mfoot"><button class="btn sec" id="mCancel">Cancelar</button><button class="btn" id="mSave">Salvar</button></div></div>';
     document.body.appendChild(ov);
-    function close(){ document.body.removeChild(ov); }
+    function close(){ if(ov.parentNode) document.body.removeChild(ov); }
     ov.addEventListener("click",function(e){ if(e.target===ov) close(); });
     $("#mCancel",ov).onclick=close;
-    $("#mSave",ov).onclick=function(){ if(onSave()!==false) close(); };
+    $("#mSave",ov).onclick=async function(){ var b=$("#mSave",ov); b.disabled=true; var ok=await onSave(); b.disabled=false; if(ok!==false) close(); };
   }
 
-  /* ---------- logout ---------- */
-  $("#logout").onclick=function(){ clearSession(); state.tab="inicio"; $("#app").classList.add("hide"); $("#login").classList.remove("hide"); $("#u").value=""; $("#p").value=""; };
-
-  /* ---------- start ---------- */
+  /* ---------- START ---------- */
   boot();
 })();
 </script>

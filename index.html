@@ -234,9 +234,31 @@
           '<td class="acts"><button class="iconbtn" data-eu="'+u.id+'">Editar</button></td></tr>';
       }).join("");
       $("#ab",v).innerHTML=
-        '<div class="note">➕ Para <b>criar</b> ou <b>remover</b> um login (e-mail/senha), use o painel do Supabase: <a href="'+DASH_USERS+'" target="_blank" rel="noopener">abrir Usuários no Supabase</a>. Ao criar, a pessoa aparece aqui e você define o <b>tipo</b> (perfil) e o nome.</div>'+
-        '<div class="panel"><div class="ph"><b>Usuários</b></div><table><thead><tr><th>Nome</th><th>E-mail</th><th>Tipo</th><th></th></tr></thead><tbody>'+rows+'</tbody></table></div>';
+        '<div class="panel"><div class="ph"><b>Usuários</b><button class="btn sm" id="newUser">+ Novo usuário</button></div>'+
+        '<table><thead><tr><th>Nome</th><th>E-mail</th><th>Tipo</th><th></th></tr></thead><tbody>'+rows+'</tbody></table></div>'+
+        '<div class="note">Prefere criar/remover pelo Supabase? <a href="'+DASH_USERS+'" target="_blank" rel="noopener">abrir Usuários no painel</a>.</div>';
+      $("#newUser",v).onclick=function(){ createUserModal(); };
       Array.prototype.forEach.call(v.querySelectorAll("[data-eu]"),function(b){ b.onclick=function(){ userModal((q.data||[]).filter(function(x){return x.id===b.getAttribute("data-eu");})[0]); }; });
+    }
+    function createUserModal(){
+      openModal("Novo usuário","Cria o login (e-mail e senha) e já define o perfil.",
+        '<label>Nome</label><input id="mNome" placeholder="Nome da pessoa">'+
+        '<label>E-mail (login)</label><input id="mEmail" type="email" placeholder="pessoa@masterinfo.com">'+
+        '<label>Senha inicial (mín. 6)</label><input id="mSenha" placeholder="a pessoa troca depois">'+
+        '<label>Tipo de perfil</label><select id="mTipo">'+Object.keys(ROLES).map(function(k){return '<option value="'+k+'">'+ROLES[k]+'</option>';}).join("")+'</select>',
+        async function(){
+          var nome=$("#mNome").value.trim(), email=$("#mEmail").value.trim(), senha=$("#mSenha").value, tipo=$("#mTipo").value;
+          if(!email||!senha){ toast("Informe e-mail e senha.",true); return false; }
+          var r=await sb.functions.invoke("create-user",{body:{nome:nome,email:email,password:senha,tipo:tipo}});
+          if(r.error){
+            var msg="Erro ao criar usuário.";
+            try{ var bd=await r.error.context.json(); if(bd&&bd.error) msg=bd.error; }catch(_){}
+            if(/Failed to (fetch|send)|NetworkError|not found|404/i.test((r.error.message||"")+" "+msg)) msg="A função 'create-user' ainda não foi publicada no Supabase. Publique e tente de novo.";
+            toast(msg,true); return false;
+          }
+          if(r.data && r.data.error){ toast(r.data.error,true); return false; }
+          toast("Usuário criado."); paint(); return true;
+        });
     }
     function userModal(u){
       openModal("Editar usuário","Defina o nome e o tipo de perfil (o login e a senha ficam no Supabase).",

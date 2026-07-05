@@ -1,0 +1,13 @@
+# Sistema / OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editores
+.vscode/
+.idea/
+
+# Dependências (futuro backend)
+node_modules/
+.env
+.env.local

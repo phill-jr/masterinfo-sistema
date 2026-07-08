@@ -173,7 +173,7 @@
   function initials(s){ s=(s||"").trim(); if(!s) return "?"; var p=s.split(/\s+/); return (p[0][0]+(p[1]?p[1][0]:"")).toUpperCase(); }
   function firstName(s){ return (s||"").split(/\s+/)[0]; }
 
-  var me=null, myContent=[], state={view:"home"};
+  var me=null, myContent=[], state={view:"home"}, dbError="";
 
   /* ---- LOGIN ---- */
   $("#loginForm").addEventListener("submit", async function(e){
@@ -214,8 +214,12 @@
   }
 
   async function loadContent(){
-    var q=await sb.from("content").select("*").order("ordem");
-    myContent=(q.data||[]).filter(function(it){ return (it.roles||[]).indexOf(me.tipo)>=0; });
+    dbError="";
+    try{
+      var q=await sb.from("content").select("*").order("ordem");
+      if(q.error){ myContent=[]; dbError=/schema cache|does not exist|not find the table/i.test(q.error.message||"")?"setup":(q.error.message||"erro"); return; }
+      myContent=(q.data||[]).filter(function(it){ return (it.roles||[]).indexOf(me.tipo)>=0; });
+    }catch(e){ myContent=[]; dbError=String((e&&e.message)||e)||"erro"; }
   }
   function cats(){ var c=[]; myContent.forEach(function(it){ if(c.indexOf(it.categoria)<0) c.push(it.categoria); }); return c; }
 
@@ -253,7 +257,9 @@
     html+='<div class="stats"><div class="stat"><div class="n">'+myContent.length+'</div><div class="l">materiais disponíveis</div></div>'+
           '<div class="stat"><div class="n">'+cats().length+'</div><div class="l">áreas</div></div>'+
           '<div class="stat"><div class="n">'+esc(ROLES[me.tipo])+'</div><div class="l">seu perfil</div></div></div>';
-    if(!myContent.length){ html+='<div class="empty" style="margin-top:20px">Nenhum material liberado para o seu perfil ainda.</div>'; }
+    if(dbError==="setup"){ html+='<div class="empty" style="margin-top:20px;border-color:#fecaca;background:#fff5f5;color:#991b1b">⚠️ O banco de dados ainda não foi montado no Supabase. Rode o SQL de setup (tabelas <b>profiles</b> e <b>content</b>) e recarregue.</div>'; }
+    else if(dbError){ html+='<div class="empty" style="margin-top:20px;border-color:#fecaca;background:#fff5f5;color:#991b1b">Erro ao carregar o conteúdo: '+esc(dbError)+'</div>'; }
+    else if(!myContent.length){ html+='<div class="empty" style="margin-top:20px">Nenhum material liberado para o seu perfil ainda.</div>'; }
     cats().forEach(function(c){
       html+='<div class="cat">'+esc(c)+'</div><div class="grid">';
       myContent.filter(function(it){return it.categoria===c;}).forEach(function(it){ html+=tileHtml(it); });
